@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of AHBAB & ROHMA SEPTIANA</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Fonts: Lora (Serif Elegan) & Inter (Sans-serif Modern) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Konfigurasi Tailwind untuk Warna dan Font Kustom -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // Lora untuk kesan elegan dan minimalis (digunakan untuk judul)
+                        display: ['Lora', 'serif'], 
+                        // Inter untuk body teks (digunakan untuk konten)
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'navy-primary': '#0F172A', // Warna utama: Navy Blue
+                        'navy-light': '#1e3a8a', // Aksen Navy yang lebih terang
+                        'ivory-bg': '#F7F7F0', // Latar belakang yang lembut (Off-White/Ivory)
+                        'gold-accent': '#C9B072', // Aksen sekunder: Emas lembut
+                        'text-light': '#E5E7EB', // Teks terang untuk latar belakang gelap
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Kustom untuk Minimalisme, Efek Scroll, dan Parallax */
+        body {
+            background-color: #F7F7F0; /* Latar belakang ivory lembut */
+            color: #0F172A;
+            /* Pastikan tidak ada horizontal scroll */
+            overflow-x: hidden; 
+        }
+
+        /* Gaya Khusus Hero Section (Menggunakan Parallax/Fixed Background) */
+        #hero-section {
+            height: 100vh;
+            /* Hero Image Pasangan */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.7)), url('https://lh3.googleusercontent.com/d/1lCca8T3aswxTMn9mpKJ2Zi59YZmCYOly');
+            background-size: cover;
+            background-position: center;
+            /* Efek Parallax Ringan */
+            background-attachment: fixed;
+            position: relative;
+            display: flex; /* Tambahkan flex untuk memastikan centering */
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Scroll Reveal (Animasi Awal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Divider minimalis */
+        .minimal-divider {
+            width: 50px;
+            height: 1px;
+            background-color: #C9B072;
+            margin: 1rem auto;
+            opacity: 0.8;
+        }
+        
+        /* Button Style */
+        .primary-btn {
+            @apply px-8 py-3 bg-gold-accent text-navy-primary font-semibold rounded-full shadow-lg transition duration-300 hover:bg-gold-accent/80 hover:shadow-xl;
+        }
+
+        /* Card Style */
+        .info-card {
+             @apply p-6 md:p-10 bg-white rounded-xl shadow-lg border-t-4 border-gold-accent/80 transition duration-500 hover:shadow-2xl;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Mute/Unmute Musik (Fixed) -->
+    <button id="music-control" class="fixed bottom-4 right-4 z-50 p-3 bg-navy-primary text-text-light rounded-full shadow-xl transition-all duration-300 hover:scale-110">
+        <!-- Ikon Musik (Awal: Mute) - Menggunakan Ikon Speaker Off/Mute -->
+        <svg id="music-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.332 3.931a.75.75 0 011.01.127l2.844 3.791a.75.75 0 01-.606 1.251H4.493a.75.75 0 01-.606-1.251l2.844-3.791a.75.75 0 011.01-.127zm.606 12.138a.75.75 0 01-1.01-.127l-2.844-3.791a.75.75 0 01.606-1.251h8.568a.75.75 0 01.606 1.251l-2.844 3.791a.75.75 0 01-1.01.127z" clip-rule="evenodd" /></svg>
+    </button>
+    <audio id="background-music" loop></audio>
+
+
+    <!-- HERO SECTION (Halaman Utama) -->
+    <section id="hero-section" class="text-center p-4">
+        <div class="bg-navy-primary/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-2xl max-w-lg w-full reveal">
+            <p class="text-lg text-text-light font-sans mb-3 tracking-wider font-light">The Wedding Of</p>
+            <h1 class="text-7xl md:text-9xl font-display font-bold text-gold-accent my-4 leading-none transform transition duration-1000">
+                A <span class="text-text-light text-5xl md:text-6xl">&amp;</span> R
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-display font-semibold text-text-light mt-4 mb-2">
+                AHBAB & ROHMA SEPTIANA
+            </h2>
+            <p class="text-xl text-text-light font-sans font-medium">07 Desember 2025</p>
+            
+            <!-- Tombol Buka Undangan -->
+            <button id="open-invitation-btn" class="mt-8 primary-btn">
+                Buka Undangan
+            </button>
+        </div>
+    </section>
+    
+    <!-- Bagian Utama Konten (Disembunyikan sebelum interaksi user) -->
+    <div id="main-content" class="hidden">
+
+        <!-- KUTIPAN AL-QUR'AN (Kata-kata Pembuka) -->
+        <section id="quote-section" class="py-16 md:py-24 px-4 bg-ivory-bg text-center">
+            <div class="max-w-4xl mx-auto reveal">
+                <p class="text-xl md:text-2xl font-display italic text-gray-700 leading-relaxed">
+                    “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.”
+                </p>
+                <p class="text-md font-semibold text-navy-primary mt-4">— Q.S. Ar-Rum (30) : 21</p>
+            </div>
+        </section>
+
+        <!-- DETAIL PASANGAN -->
+        <section id="detail-pasangan" class="py-16 md:py-24 px-4 bg-navy-primary text-text-light">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <h2 class="text-4xl font-display font-bold text-gold-accent mb-2">Mempelai</h2>
+                <div class="minimal-divider"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-12">
+                    <div class="reveal p-4">
+                        <!-- Hero Image Pasangan (Pria) - Placeholder -->
+                        <img src="https://placehold.co/150x150/C9B072/0F172A?text=AZ" onerror="this.onerror=null;this.src='https://placehold.co/150x150/C9B072/0F172A?text=AZ'" alt="Foto Pengantin Pria" class="w-40 h-40 mx-auto rounded-full object-cover mb-4 border-4 border-gold-accent/70 shadow-lg">
+                        <h3 class="text-3xl font-display font-bold text-text-light">AHBAB ZAIDI</h3>
+                        <p class="text-md text-gray-400 mt-2">Putra dari Bpk. [Nama Ayah Pria] & Ibu. [Nama Ibu Pria]</p>
+                    </div>
+                    <div class="reveal p-4">
+                        <!-- Hero Image Pasangan (Wanita) - Placeholder -->
+                        <img src="https://placehold.co/150x150/C9B072/0F172A?text=RS" onerror="this.onerror=null;this.src='https://placehold.co/150x150/C9B072/0F172A?text=RS'" alt="Foto Pengantin Wanita" class="w-40 h-40 mx-auto rounded-full object-cover mb-4 border-4 border-gold-accent/70 shadow-lg">
+                        <h3 class="text-3xl font-display font-bold text-text-light">ROHMA SEPTIANA</h3>
+                        <p class="text-md text-gray-400 mt-2">Putri dari Bpk. [Nama Ayah Wanita] & Ibu. [Nama Ibu Wanita]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COUNTDOWN TIMER -->
+        <section id="countdown-timer" class="py-16 md:py-24 bg-ivory-bg text-center">
+            <div class="max-w-4xl mx-auto px-4 reveal">
+                <h2 class="text-4xl font-display font-bold text-navy-primary mb-2">Menghitung Hari</h2>
+                <div class="minimal-divider"></div>
+                <p class="text-lg text-gray-500 font-sans mb-8">Pernikahan akan diselenggarakan dalam:</p>
+                <div id="countdown" class="flex justify-center space-x-3 md:space-x-6 text-navy-primary font-sans font-bold">
+                    <!-- Countdown blocks will be inserted here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- INFORMASI ACARA -->
+        <section id="acara-section" class="py-16 md:py-24 px-4 bg-navy-primary text-text-light">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-4xl font-display font-bold text-gold-accent mb-2 reveal">Waktu dan Lokasi</h2>
+                <div class="minimal-divider reveal"></div>
+                <p class="text-lg text-gray-400 mb-12 reveal">Kami mengundang Anda untuk hadir dalam rangkaian acara berikut:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- AKAD NIKAH -->
+                    <div class="info-card bg-text-light text-navy-primary reveal">
+                        <h3 class="text-2xl font-display font-bold text-navy-light mb-4">Akad Nikah</h3>
+                        <p class="text-lg font-semibold text-gray-700">Minggu, 07 Desember 2025</p>
+                        <p class="text-4xl font-display font-extrabold text-gold-accent my-4">10:00 WITA</p>
+                        <p class="mt-2 text-gray-600 font-medium">Lokasi:</p>
+                        <p class="text-base text-gray-500 italic px-2">Desa Mamben Daya, Kec. Wanasaba, Kab. Lombok Timur, NTB</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Mamben+Daya" target="_blank" class="inline-block mt-6 px-5 py-2 bg-navy-primary text-white rounded-full text-sm font-semibold hover:bg-navy-light transition">Lihat Peta Lokasi</a>
+                    </div>
+
+                    <!-- RESEPSI -->
+                    <div class="info-card bg-text-light text-navy-primary reveal">
+                        <h3 class="text-2xl font-display font-bold text-navy-light mb-4">Resepsi Pernikahan</h3>
+                        <p class="text-lg font-semibold text-gray-700">Minggu, 07 Desember 2025</p>
+                        <p class="text-4xl font-display font-extrabold text-gold-accent my-4">10:00 WITA - Selesai</p>
+                        <p class="mt-2 text-gray-600 font-medium">Lokasi:</p>
+                        <p class="text-base text-gray-500 italic px-2">Desa Mamben Daya, Kec. Wanasaba, Kab. Lombok Timur, NTB</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Desa+Mamben+Daya" target="_blank" class="inline-block mt-6 px-5 py-2 bg-navy-primary text-white rounded-full text-sm font-semibold hover:bg-navy-light transition">Lihat Peta Lokasi</a>
+                    </div>
+
+                    <!-- Google Maps Embed - Placeholder -->
+                    <div class="md:col-span-2 mt-8 reveal">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15787.521877478082!2d116.51658445!3d-8.6253916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbe2c7515d9cccd%3A0x7d25e01c706d15a9!2sMamben%20Daya%2C%20Wanasaba%2C%20East%20Lombok%20Regency%2C%20West%20Nusa%20Tenggara!5e0!3m2!1sen!2sid!4v1700440000000" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-xl shadow-2xl border-2 border-gold-accent"></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP FORM & UCAPAN TAMU (Minimalis) -->
+        <section id="interaksi-section" class="py-16 md:py-24 px-4 bg-ivory-bg">
+            <div class="max-w-3xl mx-auto">
+                
+                <!-- RSVP FORM -->
+                <div id="rsvp-form-container" class="info-card mb-12 reveal">
+                    <h2 class="text-3xl font-display font-bold text-navy-primary mb-4 text-center">Konfirmasi Kehadiran</h2>
+                    <div class="minimal-divider"></div>
+                    <form id="rsvp-form" class="space-y-4 mt-6">
+                        <div>
+                            <label for="rsvp-nama" class="block text-sm font-medium text-gray-700">Nama Tamu</label>
+                            <input type="text" id="rsvp-nama" placeholder="Nama Anda" required class="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-gold-accent focus:border-gold-accent transition">
+                        </div>
+                        <div>
+                            <label for="rsvp-hadir" class="block text-sm font-medium text-gray-700">Status Kehadiran</label>
+                            <select id="rsvp-hadir" required class="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:ring-gold-accent focus:border-gold-accent transition">
+                                <option value="hadir">Ya, saya akan hadir</option>
+                                <option value="tidak">Maaf, saya tidak bisa hadir</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full primary-btn mt-6">
+                            Kirim Konfirmasi RSVP
+                        </button>
+                        <!-- Custom Alert Area -->
+                        <div id="rsvp-message" class="mt-4 p-3 rounded-lg text-center hidden font-semibold border transition duration-300"></div>
+                    </form>
+                </div>
+
+                <!-- UCAPAN DARI TAMU -->
+                <div id="ucapan-tamu-container" class="info-card reveal">
+                    <h2 class="text-3xl font-display font-bold text-navy-primary mb-4 text-center">Doa dan Ucapan</h2>
+                    <div class="minimal-divider"></div>
+                    
+                    <form id="ucapan-form" class="space-y-3">
+                        <input type="text" id="ucapan-nama" placeholder="Nama Anda" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-gold-accent focus:border-gold-accent transition">
+                        <textarea id="ucapan-text" rows="4" placeholder="Tulis ucapan selamat dan doa terbaik Anda di sini..." required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-gold-accent focus:border-gold-accent transition"></textarea>
+                        <button type="submit" class="mt-4 w-full primary-btn bg-navy-primary text-text-light hover:bg-navy-light">
+                            Kirim Ucapan
+                        </button>
+                        <!-- Custom Alert Area -->
+                        <div id="ucapan-message" class="mt-4 p-3 rounded-lg text-center hidden font-semibold border transition duration-300"></div>
+                    </form>
+
+                    <!-- Bagian Tampilan Ucapan (Simulasi) -->
+                    <div class="mt-8 pt-4 border-t border-gray-200">
+                        <h3 class="text-xl font-semibold text-navy-primary mb-3">Daftar Ucapan (Simulasi)</h3>
+                        <div id="ucapan-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                            <div class="p-3 bg-ivory-bg rounded-lg border-l-4 border-gold-accent shadow-sm">
+                                <p class="font-bold text-navy-light">Contoh Tamu 1</p>
+                                <p class="text-sm text-gray-700 mt-1">Selamat menempuh hidup baru! Semoga SAMAWA, bahagia selalu dunia akhirat.</p>
+                            </div>
+                            <div class="p-3 bg-ivory-bg rounded-lg border-l-4 border-gold-accent shadow-sm">
+                                <p class="font-bold text-navy-light">Contoh Tamu 2</p>
+                                <p class="text-sm text-gray-700 mt-1">Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fii khoir. Maaf tidak bisa hadir!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PENUTUP/FOOTER -->
+        <footer class="py-12 bg-navy-primary text-text-light text-center px-4">
+            <div class="max-w-4xl mx-auto reveal">
+                <h2 class="text-4xl font-display font-bold text-gold-accent mb-4">Terima Kasih</h2>
+                <p class="text-gray-400 mb-6 text-lg">Kehadiran serta doa restu Anda merupakan hadiah terindah bagi kami.</p>
+                <p class="text-2xl font-display font-bold text-text-light">&mdash; AHBAB ZAIDI & ROHMA SEPTIANA &mdash;</p>
+                <p class="text-xs text-gray-600 mt-4">Dibuat dengan gaya Minimalis Elegan</p>
+            </div>
+        </footer>
+    </div>
+
+
+    <script>
+        // --- DATA KONSTAN & SETUP ---
+        // Tanggal Pernikahan: 2025-12-07, Pukul 10:00 WITA
+        const WEDDING_DATE = new Date('2025-12-07T10:00:00+08:00').getTime(); 
+        const AUDIO_LINK = 'https://lh3.googleusercontent.com/d/1NpU5N-fcc4JOklqdwSjXzH37MEaV9U7j';
+        const HERO_IMAGE_LINK = 'https://lh3.googleusercontent.com/d/1lCca8T3aswxTMn9mpKJ2Zi59YZmCYOly'; 
+        
+        const heroSection = document.getElementById('hero-section');
+        const mainContent = document.getElementById('main-content');
+        const audio = document.getElementById('background-music');
+        const musicControlBtn = document.getElementById('music-control');
+        const openBtn = document.getElementById('open-invitation-btn');
+        let isPlaying = false;
+        
+        // --- Inisialisasi Hero Image dan Error Handling ---
+        // Menguji apakah Hero Image bisa dimuat. Jika gagal, gunakan warna solid.
+        function setupHeroImage() {
+            const tempImg = new Image();
+            tempImg.onload = function() {
+                // Gambar berhasil dimuat. CSS akan mengambil alih.
+            };
+            tempImg.onerror = function() {
+                console.warn("Hero Image gagal dimuat. Menggunakan background warna solid.");
+                // Ganti gaya latar belakang jika gambar gagal
+                heroSection.style.backgroundImage = 'linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9))';
+                heroSection.style.backgroundAttachment = 'scroll';
+            };
+            tempImg.src = HERO_IMAGE_LINK; 
+        }
+
+        // --- FUNGSI COUNTDOWN TIMER ---
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = WEDDING_DATE - now;
+            const countdownEl = document.getElementById('countdown');
+
+            // Waktu lokal ke WITA: Indonesia Tengah (GMT+8). Karena WEDDING_DATE sudah pakai +08:00, ini aman.
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                clearInterval(window.countdownInterval);
+                countdownEl.innerHTML = `<p class="text-2xl text-gold-accent font-display">ACARA SEDANG/TELAH BERLANGSUNG</p>`;
+                return;
+            } 
+            
+            countdownEl.innerHTML = `
+                ${createCountdownBlock(days, 'Hari')}
+                ${createCountdownBlock(hours, 'Jam')}
+                ${createCountdownBlock(minutes, 'Menit')}
+                ${createCountdownBlock(seconds, 'Detik')}
+            `;
+        }
+
+        function createCountdownBlock(value, label) {
+            return `
+                <div class="w-16 h-20 md:w-24 md:h-28 bg-navy-light/70 text-text-light rounded-xl shadow-lg flex flex-col justify-center items-center border-b-4 border-gold-accent transition duration-300 transform hover:scale-[1.03]">
+                    <span class="text-2xl md:text-4xl font-bold">${value}</span>
+                    <span class="text-xs md:text-sm font-normal">${label}</span>
+                </div>
+            `;
+        }
+
+        // --- FUNGSI SCROLL REVEAL (Animasi saat Scroll) ---
+        function setupScrollReveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            
+            // Intersection Observer untuk memicu kelas 'active' saat elemen masuk viewport
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 
+            });
+
+            // Hanya aktifkan observer setelah konten utama terlihat
+            if (!mainContent.classList.contains('hidden')) {
+                 reveals.forEach(el => observer.observe(el));
+            }
+        }
+
+        // --- FUNGSI KONTROL MUSIK ---
+        function setMusicIcon(playing) {
+            // Ikon Speaker (On: Musik) / Speaker Slash (Mute)
+            musicControlBtn.innerHTML = playing ? 
+                `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>` : 
+                `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.332 3.931a.75.75 0 011.01.127l2.844 3.791a.75.75 0 01-.606 1.251H4.493a.75.75 0 01-.606-1.251l2.844-3.791a.75.75 0 011.01-.127zm.606 12.138a.75.75 0 01-1.01-.127l-2.844-3.791a.75.75 0 01.606-1.251h8.568a.75.75 0 01.606 1.251l-2.844 3.791a.75.75 0 01-1.01.127z" clip-rule="evenodd" /></svg>`;
+        }
+        
+        function setupMusicControl() {
+            audio.src = AUDIO_LINK;
+            audio.volume = 0.6; // Atur volume default
+            setMusicIcon(false);
+
+            // Tombol Kontrol Mute/Unmute
+            musicControlBtn.addEventListener('click', () => {
+                if (audio.paused) {
+                    // Coba putar musik
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        setMusicIcon(true);
+                    }).catch(e => {
+                        console.error("Play failed (Autoplay policy)", e);
+                        // Jika gagal, pastikan ikon tetap mute
+                        isPlaying = false;
+                        setMusicIcon(false);
+                        displayMessage(rsvpMessage, "Error: Gagal memutar musik. Pastikan browser mengizinkannya.", "bg-red-100 text-red-700 border-red-300");
+                    });
+                } else {
+                    audio.pause();
+                    isPlaying = false;
+                    setMusicIcon(false);
+                }
+            });
+
+            // Tombol Buka Undangan (Interaksi Pertama)
+            openBtn.addEventListener('click', () => {
+                // 1. Tampilkan konten utama
+                mainContent.classList.remove('hidden');
+                heroSection.style.height = 'auto'; // Mengubah hero dari 100vh menjadi auto
+                heroSection.classList.add('py-12'); 
+
+                // 2. Putar musik (harus dipicu oleh interaksi user)
+                audio.play().then(() => {
+                    isPlaying = true;
+                    setMusicIcon(true);
+                }).catch(e => {
+                    console.warn("Autoplay gagal (normal di beberapa browser):", e);
+                });
+                
+                // 3. Mulai Scroll Reveal
+                setupScrollReveal();
+
+                // 4. Gulir ke bagian pertama
+                document.getElementById('quote-section').scrollIntoView({ behavior: 'smooth' });
+            }, { once: true });
+        }
+
+
+        // --- FUNGSI UTILITY PESAN ---
+        function displayMessage(element, text, className) {
+            element.innerHTML = text;
+            element.className = `mt-4 p-3 rounded-lg text-center font-semibold border ${className}`;
+            element.classList.remove('hidden');
+            setTimeout(() => {
+                element.classList.add('hidden');
+            }, 5000); // Pesan hilang setelah 5 detik
+        }
+
+
+        // --- FUNGSI RSVP (Simulasi) ---
+        function setupRsvpForm() {
+            const rsvpForm = document.getElementById('rsvp-form');
+            const rsvpMessage = document.getElementById('rsvp-message');
+
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nama = document.getElementById('rsvp-nama').value;
+                const hadir = document.getElementById('rsvp-hadir').value;
+
+                let messageText;
+                let messageClass;
+
+                if (hadir === 'hadir') {
+                    messageText = `Terima kasih, ${nama}! Konfirmasi kehadiran Anda telah kami terima. Sampai jumpa!`;
+                    messageClass = 'bg-green-100 text-green-700 border-green-300';
+                } else {
+                    messageText = `Terima kasih, ${nama}. Kami menghargai konfirmasi Anda. Doa restu Anda sudah cukup bagi kami.`;
+                    messageClass = 'bg-yellow-100 text-yellow-700 border-yellow-300';
+                }
+
+                displayMessage(rsvpMessage, messageText, messageClass);
+                rsvpForm.reset();
+            });
+        }
+        
+        // --- FUNGSI UCAPAN (Simulasi) ---
+        function setupUcapanForm() {
+            const ucapanForm = document.getElementById('ucapan-form');
+            const ucapanList = document.getElementById('ucapan-list');
+            const ucapanMessage = document.getElementById('ucapan-message');
+
+            ucapanForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nama = document.getElementById('ucapan-nama').value;
+                const text = document.getElementById('ucapan-text').value;
+
+                // 1. Tambahkan ke daftar (simulasi)
+                const newUcapan = document.createElement('div');
+                newUcapan.className = 'p-3 bg-ivory-bg rounded-lg border-l-4 border-gold-accent shadow-sm transition duration-500 transform scale-0';
+                newUcapan.innerHTML = `
+                    <p class="font-bold text-navy-light">${nama}</p>
+                    <p class="text-sm text-gray-700 mt-1">${text}</p>
+                `;
+                ucapanList.prepend(newUcapan);
+                
+                // Animasi masuk
+                setTimeout(() => {
+                    newUcapan.classList.remove('scale-0');
+                    newUcapan.classList.add('scale-100');
+                }, 10); 
+
+                // 2. Tampilkan pesan sukses
+                displayMessage(ucapanMessage, 'Doa dan ucapan Anda berhasil dikirimkan.', 'bg-green-100 text-green-700 border-green-300');
+
+                // 3. Reset form
+                ucapanForm.reset();
+            });
+        }
+
+
+        // --- INICIALISASI APLIKASI ---
+        window.onload = function() {
+            // Setup Hero Image (Handling error load)
+            setupHeroImage();
+
+            // Start Countdown 
+            updateCountdown();
+            // Simpan interval di window agar bisa di-clear
+            window.countdownInterval = setInterval(updateCountdown, 1000); 
+            
+            // Setup Interaksi
+            setupMusicControl();
+            setupRsvpForm();
+            setupUcapanForm();
+            
+            // Inisialisasi awal Scroll Reveal hanya untuk Hero Section
+            // Ini akan membuat pop-up nama di tengah layar muncul dengan indah saat load
+            document.querySelector('#hero-section > div').classList.add('active');
+        };
+
+    </script>
+</body>
+</html>
